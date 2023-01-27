@@ -11,7 +11,7 @@ from configs import Config
 import time
 async def doc1(bot,msg,txt,message):
     old_name = msg.document.file_name
-    if remove_word:
+    if Config.REMOVE_WORD:
         file_name0 = old_name.rsplit(".",1)[0]
         new_name0 = re.sub(Config.REMOVE_WORD,"",file_name0)
         new_name = ch_username+new_name0+"."+old_name.rsplit(".",1)[1]
@@ -70,7 +70,7 @@ async def doc1(bot,msg,txt,message):
 #@Client.on_callback_query(filters.regex("vid"))
 async def vid1(bot,msg,txt,message):
     old_name = msg.video.file_name
-    if remove_word:
+    if Config.REMOVE_WORD:
         file_name0 = old_name.rsplit(".",1)[0]
         new_name0 = re.sub(Config.REMOVE_WORD,"",file_name0)
         new_name = ch_username+new_name0+"."+old_name.rsplit(".",1)[1]
@@ -152,7 +152,7 @@ async def vid1(bot,msg,txt,message):
 #@Client.on_callback_query(filters.regex("aud"))
 async def aud1(bot,msg,txt,message):
     old_name = msg.audio.file_name
-    if remove_word:
+    if Config.REMOVE_WORD:
         file_name0 = old_name.rsplit(".",1)[0]
         new_name0 = re.sub(Config.REMOVE_WORD,"",file_name0)
         new_name = ch_username+new_name0+"."+old_name.rsplit(".",1)[1]
