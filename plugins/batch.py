@@ -109,7 +109,7 @@ async def vid1(bot,msg,txt,message):
     f_thumb_id =f_thumb_id0.file_id
     u_thumb_path = await bot.download_media(thumbs)
     if thumbs:
-        if Config,DP_PASTE and f_thumb_id:
+        if Config.DP_PASTE and f_thumb_id:
             await txt.edit("Fetching Thumbnail ...")
             fi_thumb_path = await bot.download_media(f_thumb_id)
             fi_thumb_path1 = await fix_thumbnail1(fi_thumb_path)
