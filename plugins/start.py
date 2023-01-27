@@ -7,6 +7,7 @@ from plugins.cb_data import doc,vid,aud
 from pyrogram import Client, filters
 from pyrogram.types import ( InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
 import humanize
+from plugins.batch import vud1,doc1,aud1
 from helper.database import  insert ,find_one
 from pyrogram.file_id import FileId
 import datetime
@@ -58,7 +59,7 @@ async def batch_handler(client,message):
                     #print(msg.video.file_name)
                     fwd = await msg.forward(Config.LOG_CHANNEL)
                     mes = await fwd.reply("Renaming this file now...")
-                    await vid(client,msg,txt1,message)
+                    await vid1(client,msg,txt1,message)
                     complete+=1
                     await fwd.delete()
                     await mes.delete()
@@ -68,7 +69,7 @@ async def batch_handler(client,message):
                     #print(msg.document.file_name)
                     fwd = await msg.forward(Config.LOG_CHANNEL)
                     mes = await fwd.reply("Renaming this file now...")
-                    await doc(client,msg,txt1,message)
+                    await doc1(client,msg,txt1,message)
                     complete+=1
                     await fwd.delete()
                     await mes.delete()
@@ -78,7 +79,7 @@ async def batch_handler(client,message):
                     #print(msg.audio.file_name)
                     fwd = await msg.forward(Config.LOG_CHANNEL)
                     mes = await fwd.reply("Renaming this file now...")
-                    await aud(client,msg,txt1,message)
+                    await aud1(client,msg,txt1,message)
                     complete+=1
                     await fwd.delete()
                     await mes.delete()
