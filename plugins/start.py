@@ -7,7 +7,7 @@ from plugins.cb_data import doc,vid,aud
 from pyrogram import Client, filters
 from pyrogram.types import ( InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
 import humanize
-from plugins.batch import vud1,doc1,aud1
+from plugins.batch import vid1,doc1,aud1
 from helper.database import  insert ,find_one
 from pyrogram.file_id import FileId
 import datetime
