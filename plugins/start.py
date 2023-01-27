@@ -1,14 +1,15 @@
 import os
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 import time
+import asyncio
+from configs import Config
+from plugins.cb_data import doc,vid,aud
 from pyrogram import Client, filters
 from pyrogram.types import ( InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
 import humanize
 from helper.database import  insert ,find_one
 from pyrogram.file_id import FileId
-CHANNEL = os.environ.get("CHANNEL", "")
 import datetime
-
 #Part of Day --------------------
 currentTime = datetime.datetime.now()
 
@@ -33,11 +34,86 @@ async def start(client,message):
 	 [[ InlineKeyboardButton("Support 🇮🇳" ,url="https://t.me/lntechnical") ], 
 	[InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/c/LNtechnical") ]  ]))
 
+@Client.on_message(filters.private & filters.command(["batch"]))
+async def batch_handler(client,message):
+    editable = await message.reply_text("`Processing...`", quote=True)
+    txt = await client.send_message(from_channel, ".")
+    last_msg_id = txt.message_id
+    await txt.delete()
+    start_time = datetime.datetime.now()
+    txt1 = await editable.edit(text="Batch Shortening Started!")
+    total = 0
+    complete =0 
+    empty = 0 
+    failed = 0 
+    failed_id = []
+    try:
+        
+        for m in range(1,last_msg_id):
+            msg = await client.get_messages(Config.FROM_CHANNEL,m)
+            #print(msg)
+            try:
+                if msg.video:
+                    #print(msg)
+                    #print(msg.video.file_name)
+                    fwd = await msg.forward(Config.LOG_CHANNEL)
+                    mes = await fwd.reply("Renaming this file now...")
+                    await vid(client,msg,txt1,message)
+                    complete+=1
+                    await fwd.delete()
+                    await mes.delete()
+                    
+                elif msg.document:
+                    #print(msg)
+                    #print(msg.document.file_name)
+                    fwd = await msg.forward(Config.LOG_CHANNEL)
+                    mes = await fwd.reply("Renaming this file now...")
+                    await doc(client,msg,txt1,message)
+                    complete+=1
+                    await fwd.delete()
+                    await mes.delete()
+                    
+                elif msg.audio:
+                    #print(msg)
+                    #print(msg.audio.file_name)
+                    fwd = await msg.forward(Config.LOG_CHANNEL)
+                    mes = await fwd.reply("Renaming this file now...")
+                    await aud(client,msg,txt1,message)
+                    complete+=1
+                    await fwd.delete()
+                    await mes.delete()
+                
+                else:
+                    empty+=1 
+                total+=1
+            except Exception as e:
+                #erre = await msg.forward(from_channel)
+                await message.reply_text(f"this file id --- {msg.message_id} can't be rename due to errror ----- \n{e}")
+                failed+=1 
+                failed_id.append(msg.message_id)
+                await fwd.delete()
+                await mes.delete()
+            if total % 10 == 0:
+                msg = f"Batch renaming in Process !\n\nTotal: `{total}`\nSuccess: `{complete}`\nFailed: `{failed}`\nEmpty: `{empty}`\nFailed_id: `{failed_id}`"
+                await txt1.edit((msg))
+    
+                    
+    except Exception as e:
+        await txt1.reply(f"batch Shortening failed due to ----- {e}",quote=True)
+        print(e)
+    finally:
+        end_time = datetime.datetime.now()
+        await asyncio.sleep(6)
+        t = end_time - start_time
+        time_taken = str(datetime.timedelta(seconds=t.seconds))
+        msg = f"Batch Shortening Completed!\n\nTime Taken - `{time_taken}`\n\nTotal: `{total}`\nSuccess: `{complete}`\nFailed: `{failed}`\nEmpty: `{empty}`\nFailed_id: `{failed_id}`"
+        await txt1.edit(msg)
+
 
 
 @Client.on_message(filters.private &( filters.document | filters.audio | filters.video ))
 async def send_doc(client,message):
-       update_channel = CHANNEL
+       update_channel = Config.CHANNEL
        user_id = message.from_user.id
        if update_channel :
        	try:
