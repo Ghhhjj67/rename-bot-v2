@@ -38,7 +38,7 @@ async def start(client,message):
 @Client.on_message(filters.private & filters.command(["batch"]))
 async def batch_handler(client,message):
     editable = await message.reply_text("`Processing...`", quote=True)
-    txt = await client.send_message(from_channel, ".")
+    txt = await client.send_message(Config.FROM_CHANNEL, ".")
     last_msg_id = txt.message_id
     await txt.delete()
     start_time = datetime.datetime.now()
