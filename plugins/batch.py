@@ -14,7 +14,7 @@ async def doc1(bot,msg,txt,message):
     if Config.REMOVE_WORD:
         file_name0 = old_name.rsplit(".",1)[0]
         new_name0 = re.sub(Config.REMOVE_WORD,"",file_name0)
-        new_name = ch_username+new_name0+"."+old_name.rsplit(".",1)[1]
+        new_name = Config.CH_USERNAME+new_name0+"."+old_name.rsplit(".",1)[1]
     else:
         new_name=old_name
     if msg.document.caption:
@@ -73,7 +73,7 @@ async def vid1(bot,msg,txt,message):
     if Config.REMOVE_WORD:
         file_name0 = old_name.rsplit(".",1)[0]
         new_name0 = re.sub(Config.REMOVE_WORD,"",file_name0)
-        new_name = ch_username+new_name0+"."+old_name.rsplit(".",1)[1]
+        new_name = Config.CH_USERNAME+new_name0+"."+old_name.rsplit(".",1)[1]
     else:
         new_name=old_name
     if msg.video.caption:
@@ -126,7 +126,8 @@ async def vid1(bot,msg,txt,message):
             Image.open(u_thumb_path).convert("RGB").save(u_thumb_path)
             img = Image.open(u_thumb_path)
             img.resize((320, 320))
-            thumb_save =await bot.save_file(path=u_thumb_path)
+            img.save(u_thumb_path)
+            #thumb_save =await bot.save_file(path=u_thumb_path)
         c_time = time.time()
         await ms.edit("```Trying To Upload```")
         c_time = time.time()
@@ -155,7 +156,7 @@ async def aud1(bot,msg,txt,message):
     if Config.REMOVE_WORD:
         file_name0 = old_name.rsplit(".",1)[0]
         new_name0 = re.sub(Config.REMOVE_WORD,"",file_name0)
-        new_name = ch_username+new_name0+"."+old_name.rsplit(".",1)[1]
+        new_name = Config.CH_USERNAME+new_name0+"."+old_name.rsplit(".",1)[1]
     else:
         new_name=old_name
     if msg.audio.caption:
