@@ -17,11 +17,11 @@ async def doc1(bot,msg,txt,message):
         new_name = Config.CH_USERNAME+new_name0+"."+old_name.rsplit(".",1)[1]
     else:
         new_name=old_name
-    if msg.document.caption:
+    if msg.caption:
         if Config.REMOVE_CAPTION:
-            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.document.caption)
+            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.caption)
         else:
-            new_caption = msg.document.caption
+            new_caption = msg.caption
     else:
         new_caption = new_name
     file_path = f"downloads/{new_name}"
@@ -76,11 +76,11 @@ async def vid1(bot,msg,txt,message):
         new_name = Config.CH_USERNAME+new_name0+"."+old_name.rsplit(".",1)[1]
     else:
         new_name=old_name
-    if msg.video.caption:
+    if msg.caption:
         if Config.REMOVE_CAPTION:
-            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.video.caption)
+            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.caption)
         else:
-            new_caption = msg.video.caption
+            new_caption = msg.caption
     else:
         new_caption = new_name
     file_path = f"downloads/{new_name}"
@@ -159,11 +159,11 @@ async def aud1(bot,msg,txt,message):
         new_name = Config.CH_USERNAME+new_name0+"."+old_name.rsplit(".",1)[1]
     else:
         new_name=old_name
-    if msg.audio.caption:
+    if msg.caption:
         if Config.REMOVE_CAPTION:
-            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.audio.caption)
+            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.caption)
         else:
-            new_caption = msg.audio.caption
+            new_caption = msg.caption
     else:
         new_caption = new_name
     file_path = f"downloads/{new_name}"
