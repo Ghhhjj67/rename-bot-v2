@@ -50,7 +50,7 @@ async def batch_handler(client,message):
     failed_id = []
     try:
         
-        for m in range(1,last_msg_id):
+        for m in range(1420,last_msg_id):
             msg = await client.get_messages(Config.FROM_CHANNEL,m)
             #print(msg)
             try:
