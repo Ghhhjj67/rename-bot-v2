@@ -20,11 +20,11 @@ async def doc1(bot,msg,txt,message):
         new_name=old_name
     if msg.caption:
         if Config.REMOVE_CAPTION:
-            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.caption)
+            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.caption)+f"\n{Config.TAG}"
         else:
-            new_caption = msg.caption
+            new_caption = msg.caption+f"\n{Config.TAG}"
     else:
-        new_caption = new_name
+        new_caption = new_name+f"\n{Config.TAG}"
     file_path = f"downloads/{new_name}"
     file = msg.document
     ms = await txt.edit("Trying To Download...")
@@ -79,11 +79,11 @@ async def vid1(bot,msg,txt,message):
         new_name=old_name
     if msg.caption:
         if Config.REMOVE_CAPTION:
-            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.caption)
+            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.caption)+f"\n{Config.TAG}"
         else:
-            new_caption = msg.caption
+            new_caption = msg.caption+f"\n{Config.TAG}"
     else:
-        new_caption = new_name
+        new_caption = new_name+f"\n{Config.TAG}"
     file_path = f"downloads/{new_name}"
     file = msg.video
     ms = await txt.edit("Trying To Download...")
@@ -169,11 +169,11 @@ async def aud1(bot,msg,txt,message):
         new_name=old_name
     if msg.caption:
         if Config.REMOVE_CAPTION:
-            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.caption)
+            new_caption = re.sub(Config.REMOVE_CAPTION,"",msg.caption)+f"\n{Config.TAG}"
         else:
-            new_caption = msg.caption
+            new_caption = msg.caption+f"\n{Config.TAG}"
     else:
-        new_caption = new_name
+        new_caption = new_name+f"\n{Config.TAG}"
     file_path = f"downloads/{new_name}"
     file = msg.audio
     ms = await txt.edit("Trying To Download...")
