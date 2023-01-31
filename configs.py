@@ -16,3 +16,4 @@ class Config(object):
     TO_CHANNEL = int(os.environ.get("TO_CHANNEL","-1001585205141"))
     REMOVE_CAPTION = os.environ.get("REMOVE_CAPTION","💥|Join Us Oɴ Tᴇʟᴇɢʀᴀᴍ|❤️|SIDHUU5911|BuLMoviee|Join Us On Telegram||JESSEVERSE|Jesseverse|_Join_Us_On_Telegram_|Theprofffesorr|Latest_Movies_Reborn|@|Latest_Movies_1stOnNet|Hindi_Fhd_Movies|Backup channel|File Uploaded Here|https|http|:|//|t.me|Quality_HD|Hindi_FHd_Movies|Latest_Movies_FreeOnNet|Uploaded by|🔰|Uᴘʟᴏᴀᴅᴇᴅ Bʏ|JOIN|SUPPORT|♻️ F-Press")
     CHANNEL = os.environ.get("CHANNEL","")
+    START_FROM = int(os.environ.get("START_FROM","240"))
