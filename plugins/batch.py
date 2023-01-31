@@ -6,6 +6,7 @@ from hachoir.parser import createParser
 from helper.database import find
 import os
 import re
+import shutil
 from PIL import Image
 from configs import Config
 import time
@@ -26,10 +27,10 @@ async def doc1(bot,msg,txt,message):
         new_caption = new_name
     file_path = f"downloads/{new_name}"
     file = msg.document
-    ms = await txt.edit("``` Trying To Download...```")
+    ms = await txt.edit("Trying To Download...")
     c_time = time.time()
     try:
-        path = await bot.download_media(message = file, progress=progress_for_pyrogram,progress_args=( "``` Trying To Download...```",  ms, c_time   ))
+        path = await bot.download_media(message = file, progress=progress_for_pyrogram,progress_args=( "Trying To Download...",  ms, c_time   ))
     except Exception as e:
         await ms.reply_text(e)
         return
@@ -46,10 +47,10 @@ async def doc1(bot,msg,txt,message):
         img.resize((320, 320))
         img.save(ph_path, "JPEG")
         c_time = time.time()
-        await ms.edit("```Trying To Upload```")
+        await ms.edit("Trying To Upload")
         c_time = time.time()
         try:
-            await bot.send_document(Config.TO_CHANNEL,document = file_path,thumb=ph_path,caption = f"**{new_caption}**",progress=progress_for_pyrogram,progress_args=( "```Trying To Uploading```",  ms, c_time   ))
+            await bot.send_document(Config.TO_CHANNEL,document = file_path,thumb=ph_path,caption = f"**{new_caption}**",progress=progress_for_pyrogram,progress_args=( "Trying To Uploading",  ms, c_time   ))
             #await ms.delete()
             os.remove(file_path)
             os.remove(ph_path)
@@ -58,10 +59,10 @@ async def doc1(bot,msg,txt,message):
             os.remove(file_path)
             os.remove(ph_path)
     else:
-        await ms.edit("```Trying To Upload```")
+        await ms.edit("Trying To Upload")
         c_time = time.time()
         try:
-            await bot.send_document(Config.TO_CHANNEL,document = file_path,caption = f"**{new_caption}**",progress=progress_for_pyrogram,progress_args=( "```Trying To Uploading```",  ms, c_time   ))
+            await bot.send_document(Config.TO_CHANNEL,document = file_path,caption = f"**{new_caption}**",progress=progress_for_pyrogram,progress_args=( "Trying To Uploading",  ms, c_time   ))
             #await ms.delete()
             os.remove(file_path)
         except Exception as e:
@@ -85,10 +86,11 @@ async def vid1(bot,msg,txt,message):
         new_caption = new_name
     file_path = f"downloads/{new_name}"
     file = msg.video
-    ms = await txt.edit("``` Trying To Download...```")
+    ms = await txt.edit("Trying To Download...")
     c_time = time.time()
+    
     try:
-        path = await bot.download_media(message = file, progress=progress_for_pyrogram,progress_args=( "``` Trying To Download...```",  ms, c_time   ))
+        path = await bot.download_media(message = file, progress=progress_for_pyrogram,progress_args=( "Trying To Download...",  ms, c_time   ))
     except Exception as e:
         
         await ms.reply_text(e)
@@ -129,22 +131,28 @@ async def vid1(bot,msg,txt,message):
             img.save(u_thumb_path)
             #thumb_save =await bot.save_file(path=u_thumb_path)
         c_time = time.time()
-        await ms.edit("```Trying To Upload```")
+        await ms.edit("Trying To Upload")
         c_time = time.time()
         try:
-            await bot.send_video(Config.TO_CHANNEL,video = file_path,caption = f"**{new_caption}**",thumb=fi_thumb_path1 or u_thumb_path,duration =duration, progress=progress_for_pyrogram,progress_args=( "```Trying To Uploading```",  ms, c_time   ))
+            await bot.send_video(Config.TO_CHANNEL,video = file_path,caption = f"**{new_caption}**",thumb=fi_thumb_path1 or u_thumb_path,duration =duration, progress=progress_for_pyrogram,progress_args=( "Trying To Uploading",  ms, c_time   ))
             #await ms.delete()
             os.remove(file_path)
-            os.remove(fi_thumb_path or u_thumb_path)
+            if fi_thumb_path:
+                
+                os.remove(fi_thumb_path)
+            os.remove(u_thumb_path)
+            #shutil.rmtree(thumb_path)
         except Exception as e:
             await ms.reply(e)
             os.remove(file_path)
-            os.remove(fi_thumb_path or u_thumb_path)
+            if fi_thumb_path:
+                os.remove(fi_thumb_path)
+            os.remove(u_thumb_path)
     else:
-        await ms.edit("```Trying To Upload```")
+        await ms.edit("Trying To Upload")
         c_time = time.time()
         try:
-            await bot.send_video(Config.TO_CHANNEL,video = file_path,caption = f"**{new_caption}**",duration = duration, progress=progress_for_pyrogram,progress_args=( "```Trying To Uploading```",  ms, c_time   ))
+            await bot.send_video(Config.TO_CHANNEL,video = file_path,caption = f"**{new_caption}**",duration = duration, progress=progress_for_pyrogram,progress_args=( "Trying To Uploading",  ms, c_time   ))
             #await ms.delete()
             os.remove(file_path)
         except Exception as e:
@@ -168,10 +176,10 @@ async def aud1(bot,msg,txt,message):
         new_caption = new_name
     file_path = f"downloads/{new_name}"
     file = msg.audio
-    ms = await txt.edit("``` Trying To Download...```")
+    ms = await txt.edit("Trying To Download...")
     c_time = time.time()
     try:
-        path = await bot.download_media(message = file , progress=progress_for_pyrogram,progress_args=( "``` Trying To Download...```",  ms, c_time   ))
+        path = await bot.download_media(message = file , progress=progress_for_pyrogram,progress_args=( "Trying To Download...",  ms, c_time   ))
     except Exception as e:
         await ms.reply_text(e)
         return
@@ -192,10 +200,10 @@ async def aud1(bot,msg,txt,message):
         img = Image.open(ph_path)
         img.resize((320, 320))
         img.save(ph_path, "JPEG")
-        await ms.edit("```Trying To Upload```")
+        await ms.edit("Trying To Upload")
         c_time = time.time()
         try:
-            await bot.send_audio(Config.TO_CHANNEL,audio = file_path,caption = f"**{new_caption}**",thumb=ph_path,duration =duration, progress=progress_for_pyrogram,progress_args=( "```Trying To Uploading```",  ms, c_time   ))
+            await bot.send_audio(Config.TO_CHANNEL,audio = file_path,caption = f"**{new_caption}**",thumb=ph_path,duration =duration, progress=progress_for_pyrogram,progress_args=( "Trying To Uploading",  ms, c_time   ))
             #await ms.delete()
             os.remove(file_path)
             os.remove(ph_path)
@@ -204,10 +212,10 @@ async def aud1(bot,msg,txt,message):
             os.remove(file_path)
             os.remove(ph_path)
     else:
-        await ms.edit("```Trying To Upload```")
+        await ms.edit("Trying To Upload")
         c_time = time.time()
         try:
-            await bot.send_audio(Config.TO_CHANNEL,audio = file_path,caption = f"**{new_caption}**",duration = duration, progress=progress_for_pyrogram,progress_args=( "```Trying To Uploading```",  ms, c_time   ))
+            await bot.send_audio(Config.TO_CHANNEL,audio = file_path,caption = f"**{new_caption}**",duration = duration, progress=progress_for_pyrogram,progress_args=( "Trying To Uploading",  ms, c_time   ))
             #await ms.delete()
             os.remove(file_path)
         except Exception as e:
