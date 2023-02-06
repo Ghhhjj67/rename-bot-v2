@@ -1,3 +1,3 @@
 #!/bin/bash
-python3 -m bot
+python3 bot.py
 gunicorn app:app
