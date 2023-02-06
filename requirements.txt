@@ -5,3 +5,5 @@ pyrogram==2.0.97
 TgCrypto
 pymongo
 dnspython
+Flask
+gunicorn
